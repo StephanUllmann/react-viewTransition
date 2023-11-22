@@ -1,0 +1,244 @@
+:root {
+  font-family: 'Trispace', sans-serif;
+
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark only;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+a {
+  font-weight: 500;
+  text-decoration: inherit;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  font-style: italic;
+}
+
+.header {
+  margin: 2rem 10rem;
+  /* CSS nesting allows to write media queries inside of the affected rule */
+  /* new query < > instead of min-width, max-width */
+
+  @media screen and (width < 400px) {
+    margin: 2rem auto;
+    text-align: center;
+  }
+}
+
+.grid {
+  margin: 2rem 10rem;
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 35rem), 1fr));
+
+  /* Grid rows are defined for the subgrid */
+  grid-auto-rows: 20rem auto auto;
+  grid-auto-flow: dense;
+  column-gap: clamp(1rem, 5vw, 3rem);
+  row-gap: 3rem;
+  place-items: center;
+
+  /* Defines this element as container */
+  /* it's children can reference the size of this container for container queries */
+  /* inline-size -> x-axis*/
+  /* size -> x- and y-axis*/
+  container-type: inline-size;
+
+  @media screen and (width < 1200px) {
+    margin: 2rem 5rem;
+  }
+}
+
+.star {
+  text-decoration: none;
+  color: inherit;
+  display: grid;
+  /* grid rows will be taken by the subgrid children */
+  grid-row: span 3;
+  /* subgrid aligns with the parent grid */
+  grid-template-rows: subgrid;
+  justify-items: center;
+  /* background-color: #212125; */
+  background-color: color-mix(in srgb, currentColor 25%, #21212548 75%);
+  border-radius: 1rem;
+  padding-bottom: 1.5rem;
+  overflow: hidden;
+  box-shadow: 2px 1px 3px #2121257a;
+
+  /* with new CSS nesting you can write media queries nested! */
+  @container (width < 700px) {
+    background-color: purple;
+  }
+
+  /* @container (width > 1200px) {
+    grid-column: span 2;
+  } */
+}
+
+.star[data-feature='true'] {
+  /* unique name for a view transition */
+  /* name doesn't matter besides uniqueness and same on transitioned element */
+  /* ~66% support for SPA, behind chrome flag for MPA */
+  /* view-transition-name: morph; */
+
+  @container (width < 1490px) and (width > 1109px) {
+    grid-column: span 2;
+
+    /* background-color: transparent; */
+    grid-template-rows: 20rem 17rem auto;
+
+    .star__img {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+    .star__heading {
+      align-self: center;
+      font-size: 2.25rem;
+    }
+    .star__description {
+      align-self: center;
+      padding: 0.5rem;
+    }
+  }
+}
+
+/* single card after view transition */
+.star:not(:has(+ .star)):first-of-type {
+  grid-template-rows: auto;
+  gap: 2rem;
+  background-color: transparent;
+  box-shadow: none;
+
+  & .star__img {
+    height: 50dvh;
+    /* grid-column: span 2; */
+  }
+  .star__heading {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  .star__description {
+    max-width: 50ch;
+    font-size: 1.5rem;
+  }
+}
+
+a {
+  transform: all 200ms;
+
+  /* & doesn't concatenate strings, it reads like .class1.class2, instead of .class1 .class2 */
+  &:hover {
+    filter: saturate(200%);
+  }
+}
+
+.star__img {
+  height: 100%;
+  object-fit: none;
+  /* doesn't work - names need to be unique for each element  */
+  /* view-transition-name: image; */
+}
+
+.star[data-feature='true'] .star__img {
+  view-transition-name: animate-pic;
+}
+
+/* customize view transitions */
+body::view-transition-old(.star[data-feature='true'] .star__img) {
+  animation: animate-pic 30000ms forwards;
+}
+body::view-transition-new(.star[data-feature='true'] .star__img) {
+  animation: animate-pic 30000ms reverse;
+}
+
+@keyframes animate-pic {
+  from {
+    height: 0;
+  }
+  to {
+    height: 75dvh;
+  }
+}
+
+.star__heading {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.star__description {
+  max-width: 30ch;
+  font-size: 1.2rem;
+}
+
+.home-link {
+  font-size: 1.5rem;
+  margin: 1rem 1.5rem;
+  text-decoration: none;
+}
+
+.scroll-thingy {
+  position: fixed;
+  right: 0.5rem;
+  font-size: 3rem;
+  /* fist animation, then animation-timeline */
+  animation: scroll-along linear;
+  /* scroll() is relative to the whole page  */
+  /* view() is played as long element is on screen */
+  animation-timeline: scroll();
+  rotate: -45deg;
+
+  &::before {
+    content: '🚀';
+    animation: scroll-along linear;
+    animation-timeline: scroll();
+  }
+}
+
+@keyframes scroll-along {
+  0% {
+    font-size: 1rem;
+    bottom: -10dvh;
+  }
+  66% {
+    content: '🚀';
+  }
+  100% {
+    right: 0;
+    content: '💥';
+    bottom: 100dvh;
+    font-size: 4rem;
+  }
+}
