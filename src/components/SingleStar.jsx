@@ -8,7 +8,7 @@ export default function SingleStar({ star }) {
 
   const state = location.state ?? star;
   const { id, url, heading, description, featured } = state;
-  const to = location.state ? '/' : `/:${heading}`;
+  const to = location.state ? '/' : `/:${id}`;
 
   // const isTransitioning = unstable_useViewTransitionState(to);
   // const navigate = useNavigate();
