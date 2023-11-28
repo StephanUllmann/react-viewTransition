@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
-import { Form } from 'react-router-dom';
 
 export default function UpdateForm() {
   return (
-    <Form className='starPage__form' method='PUT'>
+    <form className='starPage__form'>
       <div className='field'>
         <label htmlFor='heading'>Heading</label>
         <input type='text' name='heading' id='heading' />
@@ -21,6 +20,6 @@ export default function UpdateForm() {
         <input type='url' name='url' id='image' />
       </div>
       <button>Update</button>
-    </Form>
+    </form>
   );
 }

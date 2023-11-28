@@ -1,12 +1,12 @@
 import Footer from './components/Footer';
 import Header from './components/Header';
-import { Outlet } from 'react-router-dom';
+import Stars from './components/Stars';
 
 function App() {
   return (
     <div className='body'>
       <Header />
-      <Outlet />
+      <Stars />
       <Footer />
     </div>
   );

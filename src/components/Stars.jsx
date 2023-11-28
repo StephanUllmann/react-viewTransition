@@ -1,9 +1,8 @@
 // import stars from '../stars.json';
-import { useLoaderData } from 'react-router-dom';
+import stars from '../stars.json';
 import SingleStar from './SingleStar';
 
 export default function Stars() {
-  const stars = useLoaderData();
   return (
     <>
       <main className='grid'>
