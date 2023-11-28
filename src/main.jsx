@@ -4,9 +4,9 @@ import App from './App.jsx';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Stars from './components/Stars.jsx';
-import SingleStar from './components/SingleStar.jsx';
+import StarPage from './pages/StarPage.jsx';
 
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'http://localhost:8080/stars';
 
 const router = createBrowserRouter([
   {
@@ -17,15 +17,33 @@ const router = createBrowserRouter([
         path: '/',
         element: <Stars />,
         loader: async () => {
-          return fetch(`${BASE_URL}/stars`);
+          return fetch(BASE_URL);
         },
       },
       {
         path: '/:id',
-        element: <SingleStar />,
-        // loader: async ({ params }) => {
-        //   return fetch(`${BASE_URL}/stars/${params.id.slice(1)}`);
-        // },
+        element: <StarPage />,
+        loader: async ({ params }) => {
+          return fetch(`${BASE_URL}/${params.id.slice(1)}`);
+        },
+        action: async ({ request, params }) => {
+          const id = params.id.slice(1);
+          switch (request.method) {
+            case 'PUT': {
+              const data = Object.fromEntries(await request.formData());
+              return fetch(`${BASE_URL}/${id}`, {
+                body: JSON.stringify(data),
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              });
+            }
+            default: {
+              throw new Response('', { status: 405 });
+            }
+          }
+        },
       },
     ],
   },

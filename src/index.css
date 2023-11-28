@@ -137,6 +137,8 @@ img {
 
 /* single card after view transition */
 .star:not(:has(+ .star)):first-of-type {
+  margin: 0 auto;
+  max-width: 100rem;
   grid-template-rows: auto;
   gap: 2rem;
   background-color: transparent;
@@ -240,5 +242,65 @@ body::view-transition-new(.star[data-feature='true'] .star__img) {
     content: '💥';
     bottom: 100dvh;
     font-size: 4rem;
+  }
+}
+
+.singlePage {
+  display: flex;
+
+  @media (width < 740px) {
+    flex-direction: column;
+  }
+}
+
+.starPage__form {
+  padding: 2rem 3rem;
+  background-color: rgba(73, 70, 70, 0.76);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.712);
+  border-radius: 2rem;
+  position: absolute;
+  top: 10rem;
+  right: 5rem;
+  display: flex;
+  flex-direction: column;
+  margin-right: clamp(1rem, calc(1rem + 5vw), 10rem);
+  gap: 1rem;
+  opacity: 0;
+  animation: fadeIn 300ms ease both;
+}
+
+.fadeOut {
+  animation: fadeOut 300ms ease both;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn--update {
+  height: 3rem;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+  & span {
+    /* transform: translateY(2px); */
+    vertical-align: bottom;
+    color: gray;
   }
 }
