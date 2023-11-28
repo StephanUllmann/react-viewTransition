@@ -13,11 +13,9 @@ export default function SingleStar({ star }) {
   // console.log(location.pathname);
   // const to = location.state ? '/' : `/:${id}`;
   const to = location.pathname.length > 1 ? '/' : `/:${id}`;
-
   const isTransitioning = unstable_useViewTransitionState(to, {
     relative: 'path',
   });
-
   // console.log(isTransitioning);
   // const navigate = useNavigate();
 
@@ -40,13 +38,17 @@ export default function SingleStar({ star }) {
       // state={star}
       className='star'
       data-feature={featured}
-      unstable_viewTransition>
+      unstable_viewTransition
+      // style={{ viewTransitionName: isTransitioning ? `star--${id}` : '' }}
+    >
       <img
         src={url}
         alt={heading}
         className='star__img'
         // style={{ viewTransitionName: `star--${id}` }}
-        style={{ viewTransitionName: isTransitioning ? `star--${id}` : '' }}
+        style={{
+          viewTransitionName: `star--${id}`,
+        }}
       />
       <h3
         className='star__heading'

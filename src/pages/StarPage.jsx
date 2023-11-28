@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import SingleStar from '../components/SingleStar';
 import UpdateForm from '../components/UpdateForm';
+import SuspendedStar from '../components/SuspendedStar';
 
 export default function StarPage() {
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   return (
     <div className='singlePage'>
-      <SingleStar />
+      <SuspendedStar />
+
       <button
         className='btn--update'
         onClick={() => setShowUpdateForm((prev) => !prev)}>
@@ -14,7 +15,7 @@ export default function StarPage() {
           {showUpdateForm ? 'cancel' : 'edit_note'}
         </span>
       </button>
-      {showUpdateForm && <UpdateForm />}
+      <div>{showUpdateForm && <UpdateForm />}</div>
     </div>
   );
 }
