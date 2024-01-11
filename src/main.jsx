@@ -7,7 +7,7 @@ import Stars from './components/Stars.jsx';
 import StarPage from './pages/StarPage.jsx';
 import { defer } from 'react-router-dom';
 
-const BASE_URL = 'http://localhost:8080/stars';
+const BASE_URL = 'https://stars-api-8vmk.onrender.com/stars';
 
 const router = createBrowserRouter([
   {
